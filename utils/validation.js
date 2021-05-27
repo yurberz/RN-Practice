@@ -1,16 +1,5 @@
 import * as yup from 'yup';
 
-export const loginValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('please enter valid email')
-    .required('email is required'),
-  password: yup
-    .string()
-    .min(6, ({min}) => `password must be at least ${min} characters`)
-    .required('password is required'),
-});
-
 export const regValidationSchema = yup.object().shape({
   email: yup
     .string()
@@ -31,4 +20,15 @@ export const regValidationSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password')], 'passwords do not match')
     .required('confirm password is required'),
+});
+
+export const loginValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('please enter valid email')
+    .required('email is required'),
+  password: yup
+    .string()
+    .min(6, ({min}) => `password must be at least ${min} characters`)
+    .required('password is required'),
 });

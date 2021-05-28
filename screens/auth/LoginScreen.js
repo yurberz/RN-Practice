@@ -1,6 +1,13 @@
 import React, {useContext} from 'react';
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 import {Formik} from 'formik';
@@ -9,12 +16,13 @@ import {loginValidationSchema} from '../../utils/validation';
 import {AuthContext} from '../../navigation/AuthProvider';
 import FormInput from '../../components/shared/FormInput';
 import FormButton from '../../components/shared/FormButton';
+import SocialButton from '../../components/shared/SocialButton';
 
 const LoginScreen = ({navigation}) => {
-  const {login} = useContext(AuthContext);
+  const {login, googleLogin, facebookLogin} = useContext(AuthContext);
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Image
         style={styles.logo}
         source={require('../../assets/images/4.png')}
@@ -86,13 +94,33 @@ const LoginScreen = ({navigation}) => {
         )}
       </Formik>
 
+      {Platform.OS === 'android' && (
+        <View style={styles.socialBtnContainer}>
+          <SocialButton
+            buttonTitle="Sign In With"
+            btnType="logo-google"
+            color="#DB4437"
+            backgroundColor="#fffafa"
+            onPress={() => googleLogin()}
+          />
+
+          <SocialButton
+            buttonTitle="Sign In With"
+            btnType="logo-facebook"
+            color="#4267B2"
+            backgroundColor="#fffafa"
+            onPress={() => facebookLogin()}
+          />
+        </View>
+      )}
+
       <TouchableOpacity
         style={styles.navBtn}
         onPress={() => navigation.navigate('Reg')}
         activeOpacity={0.8}>
         <Text style={styles.navBtnText}>Don't have an account? Sign up</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -115,6 +143,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 10,
     color: '#051d5f',
+  },
+  socialBtnContainer: {
+    marginTop: 30,
   },
   navBtn: {
     marginVertical: 35,

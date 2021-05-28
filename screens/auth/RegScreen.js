@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-
 import * as Animatable from 'react-native-animatable';
 
 import {Formik} from 'formik';

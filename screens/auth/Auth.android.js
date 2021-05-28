@@ -2,10 +2,13 @@ import React, {useState, useEffect} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-import OnBoardingScreen from '../auth/OnBoardingScreen';
-import LoginScreen from '../auth/LoginScreen';
-import RegScreen from '../auth/RegScreen';
+import {WEB_CLIENT_ID} from '@env';
+
+import OnBoardingScreen from './OnBoardingScreen';
+import LoginScreen from './LoginScreen';
+import RegScreen from './RegScreen';
 
 const AuthStack = createStackNavigator();
 
@@ -22,6 +25,10 @@ const Auth = () => {
       } else {
         setIsFirst(false);
       }
+    });
+
+    GoogleSignin.configure({
+      webClientId: `${WEB_CLIENT_ID}`,
     });
   }, []);
 
